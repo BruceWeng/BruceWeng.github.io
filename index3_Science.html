@@ -2,38 +2,37 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet" href="css/style3.css" />
 <body>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <thead>
-    <div id="header">
-      <h1>Which continent spend their time more efficiently in studying?</h1>
-    </div>
-  </thead>
-    <div>
-      <ul id="navbar">
-        <li id="navlinkspace"> Math </li>
-        <li id="navlinkspace"> <a id="navlink" href="../index3_Science.html">Science</a> </li>
-      </ul>
-    </div>
-    <div id="h2">
-      Math scores in 4th graders, average per country
-    </div>
-    <div id="h3">
-      --Hover over the dots to see country--
-    </div>
-  <script>
-
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<thead>
+  <div id="header">
+    <h1>Which continent spend their time more efficiently in studying?</h1>
+  </div>
+</thead>
+  <div>
+    <ul id="navbar">
+      <li id="navlinkspace"> <a id="navlink" href="../index3.html">Math</a> </li>
+      <li id="navlinkspace"> Science </li>
+    </ul>
+  </div>
+  <div id="h2">
+    Science scores in 4th graders, average per country
+  </div>
+  <div id="h4">
+    --Hover over the dots to see country--
+  </div>
+<script>
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
   // setup x 
-  var xValue = function(d) { return d.Math_hours;}, // data -> value
+  var xValue = function(d) { return d.Science_hours;}, // data -> value
       xScale = d3.scale.linear().range([0, width]), // value -> display
       xMap = function(d) { return xScale(xValue(d));}, // data -> display
       xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
   // setup y
-  var yValue = function(d) { return d.Math_scores;}, // data -> value
+  var yValue = function(d) { return d.Science_scores;}, // data -> value
       yScale = d3.scale.linear().range([height, 0]), // value -> display
       yMap = function(d) { return yScale(yValue(d));}, // data -> display
       yAxis = d3.svg.axis().scale(yScale).orient("left");
@@ -59,8 +58,8 @@
 
     // change string (from CSV) into number format
     data.forEach(function(d) {
-      d.Math_hours = +d.Math_hours;
-      d.Math_scores = +d.Math_scores;
+      d.Science_hours = +d.Science_hours;
+      d.Science_scores = +d.Science_scores;
     });
 
     // don't want dots overlapping axis, so add in buffer to data domain
@@ -77,7 +76,7 @@
         .attr("x", width)
         .attr("y", -6)
         .style("text-anchor", "end")
-        .text("Math instructional hours per year");
+        .text("Science instructional hours per year");
 
     // y-axis
     svg.append("g")
@@ -89,7 +88,7 @@
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Average math scores");
+        .text("Average Science scores");
 
     // draw dots
     svg.selectAll(".dot")
@@ -136,20 +135,14 @@
         .attr("dy", ".35em")
         .style("text-anchor", "end")
         .text(function(d) { return d;})
-  });
- </script>
+});
+</script>
 </body>
-<buttom>
-   <div id="story">
-    <ul>
-      <li>There is a stereotype Asian students spend more time on math and good at exams comparing to students in other countries. This is a data visualizaiton grouped by countires in different continents. Showing that wheather our hypothesis is valid or not.</li>
-      <li>East Asian students derive highest score and all of them spend less than 210 hours. However, most of West Asian students not perform well comparing to students from other continent except Africa.</li>
-      <li>It is intersting that no students from Europe, America and Oceania learn math longer than students form East Asian but all of them have socres between 450 and 570. This shows that their education system not focus on cultivating children who can get high socres on exams but all of them can have basic understanding on most of materials in the course.</li>
-      <li>We can also notice that African students perform not well on math. It is trivial to say the education resource in those countries is incomplete even up to today. Students there still have hard time understand basic topics in math.</li>
-      <li>Generally speaking, the average math scores distribution is East Asia > Europe, America and Oceania > West Asia > Africa. And no obvious tendency which country spends more learning time on math.</li>
-    </ul>
-    <ul class="source">
-      Souce of data: <a href="http://nces.ed.gov/programs/digest/d12/tables/dt12_460.asp"> National Center of Educational Statistics</a> <br/>
-    </ul>
-  </div>
-</buttom>
+<bottom id="story">
+  <ul>
+    <li>Comparing to math, science score from different continents shows more interesting information. We can observe that Europe students spend less time on science but they get same scores as East Asian students. I assume the history of science in Europe is longer than Asian and they have better understanding on fundamental science than Asia. </li>
+    <li>Most of Asian countries spend around 90 hours on science but their effort do not equaly reflect on their scores. On the other hand, although there is a huge range of study time from Europe countries, most of them perform well on science. </li>
+    <li>Oceania spend less time but perform well. They study science more efficiently. However, Africa is behind a lot because their environment.</li>
+    <li>To sum up, Although there is possibility the exam in Oceania and Europe is easier than others so that they can spend less time and get good score, I rather believe their education system is more complete and they have numerious knowledgable teachers passing their tips studying in science.</li>
+  </ul>
+</bottom>

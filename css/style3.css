@@ -1,0 +1,51 @@
+body {
+  /*font: 10px sans-serif;*/
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+	text-align: center;
+}
+#h2 {
+	position: relative;
+    left: 350px;
+}
+#h3 {
+	position: relative;
+    left: 380px;
+}
+#h4 {
+	position: relative;
+    left: 400px;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  color:white;
+}
+
+.dot {
+  stroke: #000;
+}
+
+#navbar {
+	display: block;
+	 font-family: 'Lato', sans-serif;	font-weight: bold;
+	list-style-type: none;
+	padding: 0;
+	text-align: center;
+}
+
+#navlinkspace{
+	display: inline;
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+ul.source {list-style-type: square;}
