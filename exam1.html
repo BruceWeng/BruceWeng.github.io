@@ -1,0 +1,135 @@
+<!-- code edit from textbook and http://bl.ocks.org/mbostock/3885304 -->
+<!doctype>
+<html land="en">
+	<head>
+		<meta charset="UTF-8" />
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+
+		<title>Exam1</title>
+	</head>
+	<body>
+		<style>
+			div.bar {
+				display: inline-block;
+				width: 20px;
+				height: 75px;
+				background-color: teal;
+				
+			}
+		</style>
+		<div class="bar"></div>
+		<script>
+
+			datasets = [];
+			width = 5;
+			height =100;
+			var margin = {top: 20, right: 20, bottom: 30, left: 40},
+			    width = 960 - margin.left - margin.right,
+			    height = 500 - margin.top - margin.bottom;
+
+			var x = d3.scale.ordinal()
+			    .domain(d3.range(5))
+			    .rangeRoundBands([0, width], 0.05);
+
+			var y = d3.scale.linear()
+			    .range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+			    .scale(x)
+			    .orient("bottom");
+
+			var yAxis = d3.svg.axis()
+			    .scale(y)
+			    .orient("left")
+			    .ticks(10, 10);
+
+			 var svg = d3.select("body").append("svg")
+			    .attr("width", width + margin.left + margin.right)
+			    .attr("height", height + margin.top + margin.bottom)
+			  	.append("g")
+			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			d3.json("exam1.json", function(data) {
+				
+				senior = data[3];
+				
+				datasets[0] = +senior["University A"];
+				datasets[1] = +senior["University B"];
+				datasets[2] = +senior["University C"];
+				datasets[3] = +senior["University D"];
+				datasets[4] = +senior["University E"];
+				x.domain(datasets.map(function(d){return d;}))
+				y.domain([0, d3.max(datasets, function(d){return})])
+				// console.log(datasets);
+			});
+			 svg.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(xAxis)
+		      .selectAll("text")
+
+
+		  	svg.append("g")
+		      .attr("class", "y axis")
+		      .call(yAxis)
+		    	.append("text")
+		      .attr("transform", "rotate(-90)")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "end")
+		      .text("Student Numbers");
+		    svg.selectAll(".bar")
+				.data(datasets)
+				.enter()
+				.append("rect")
+				.attr("class", "bar")
+				.attr("x", function(d, i) {
+					console.log(i);
+					return i*(width/datasets.length);})
+				.attr("width", x.rangeBand())
+				.attr("y", function(d) { return height - y(d); })
+  				.attr("height", function(d) { return y(d); });
+			// var svg = d3.slect("body")
+			// 	.append("svg")
+			// 	.attr("width", w)
+			// 	.atte("height", h);
+			// svg.selectAll("rect")
+			// 	.data(datasets)
+			// 	.enter()
+
+				// loaddata = [];
+				// for (x in data) {
+				// 	if (data[x]['Year'] != "Senior"){
+				// 		continue;
+				// 	}/margin-right: 2px;
+
+				// 	seniorData = data[x];
+				// 	console.log(seniorData);
+
+
+				// 	var universities = ['University A', 'University B', 'University C', 'University D', 'University E'];
+
+				// 	for (y in universities) {
+				// 		console.log(seniorData[universities[y]]);
+				// 		// var histogram = d3.layout.histogram()
+				// 		// 	.bins
+				// 		// create a container
+				// 		// var canvas = d3.select("body").append("svg")
+				// 		// 	.attr("width", 500)
+				// 		// 	.attr("height", 500);
+
+				// 			// reference data variable
+				// 			// canvas.selectAll("rect")
+				// 			// .data([seniorData[universities[y]]])
+				// 			// .enter()
+				// 			// .append("rect")
+				// 			// .attr("width", function(d) {return ;})
+				// 			// .attr("height", 50)
+				// 			// .attr("y", function(d, i) {return i *50;})
+				// 			// .attr("fill", "blue");
+				// 	}
+				// }
+				// console.log(loaddata);
+		</script>
+	</body>
+</html>
