@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Compare The Number of Senior IE Students in The Five Universities.</title>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+</head>
+<body>
+    <div>
+      <ul id="navbar">
+        <li id="navlinkspace"> <a id="navlink" href="../index.html">HW4 Coffee Visualization</a> </li>
+        <li id="navlinkspace"> <a id="navlink" href="../exam3_1.html">Exam Problem 3.1</a> </li>
+        <li id="navlinkspace">Exam Problem 3.2</li>
+        <li id="navlinkspace"> <a id="navlink" href="../exam3_3.html">Exam Problem 3.3</a> </li>
+        </ul>
+    </div>
+	<h1>Exam3.2: Compare the total numbers of IE Students in the five universities.</h1>
+
+	<script type="text/javascript">
+	// Create margin convention
+	var margin = {top: 40, right: 200, bottom: 50, left: 80},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // Create arrays by grades and sum up total number of students
+    var data = [];
+    d3.json("https://hivelab.org/static/exam1.json", function(dataset) {
+        for(var i = 0; i < 5; i++)
+        {
+            var d = {univ: "", Freshman: "", Sophomore: "", Junior: "", Senior: "", sequence: ""}
+            data[i] = d;
+            d.sequence=i;
+        }
+        var student = "";
+        for (item in dataset) {
+            if (dataset[item].Year === "Freshman") {
+                student ="Freshman"
+            }
+             if (dataset[item].Year === "Sophomore") {
+                student ="Sophomore"
+            }
+             if (dataset[item].Year === "Junior") {
+                student ="Junior"
+            }
+             if (dataset[item].Year === "Senior") {
+                student ="Senior"
+            }
+        data[0][student] = dataset[item]["University A"];
+        data[1][student] = dataset[item]["University B"];
+        data[2][student] = dataset[item]["University C"];
+        data[3][student] = dataset[item]["University D"];
+        data[4][student] = dataset[item]["University E"];
+        }
+        var i = 0;
+        for(item in dataset[0]){
+            if(item != "Year"){
+                    data[i].univ = item;
+                    i++;      
+              }
+        }
+        // Set scale
+        var xScale = d3.scale.ordinal()
+                                .domain(d3.range(5))
+                                .rangeRoundBands([0, width], 0.1);
+        var yScale = d3.scale.linear()
+                                .domain([0,500])
+                                .range([height, 0]);
+        // set axis
+        var xAxis = d3.svg.axis()
+                            .scale(xScale)
+                            .orient("bottom")
+                            .ticks(5)
+                            .tickValues([]);
+        var yAxis = d3.svg.axis()
+                            .scale(yScale)
+                            .orient("left")
+                            .ticks(10);
+        // Create svg
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0, "+height+")")
+            .call(xAxis)
+            .append("text")
+        svg .append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+        // Stack bars
+        svg.selectAll("body")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x",function(d){
+                return d.sequence * (xScale.rangeBand() + 10) +20;
+                })
+            .attr("y",function(d){
+                return height - yScale(500 - d.Freshman);
+            })
+            .attr("width",xScale.rangeBand() - 10)
+            .attr("height",function(d){
+                return yScale(500 - d.Freshman);
+            })
+            .attr("class","freshman")
+            .attr("fill","#2ECCFA")
+
+        svg.selectAll("body")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x",function(d){
+                return d.sequence * (xScale.rangeBand() + 10) +20;
+                })
+            .attr("y",function(d){
+                return height - yScale(500 - d.Freshman - d.Sophomore);
+            })
+            .attr("width",xScale.rangeBand() - 10)
+            .attr("height",function(d){
+                return yScale(500 - d.Sophomore);
+            })
+            .attr("class","sophomore")
+            .attr("fill", "#2E9AFE")
+
+        svg.selectAll("body")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x",function(d){
+                return d.sequence * (xScale.rangeBand() + 10) +20;
+                })
+            .attr("y",function(d){
+                return height - yScale(500 - d.Freshman - d.Sophomore - d.Junior);
+            })
+            .attr("width",xScale.rangeBand() - 10)
+            .attr("height",function(d){
+                return yScale(500 - d.Junior);
+            })
+            .attr("class","junior")
+            .attr("fill", "#2E64FE")
+        svg.selectAll("body")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x",function(d){
+                return d.sequence * (xScale.rangeBand() + 10) +20;
+                })
+            .attr("y",function(d){
+                return height - yScale(500 - d.Freshman - d.Sophomore - d.Junior - d.Senior);
+            })
+            .attr("width",xScale.rangeBand() - 10)
+            .attr("height",function(d){
+                return yScale(500 - d.Senior);
+            })
+            .attr("class","senior")
+            .attr("fill","#2E2EFE")
+        //add x values
+        svg.selectAll("labels")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "labels")
+            .attr("x", function(d) { 
+                return d.sequence * (xScale.rangeBand() + 10) + 40; 
+            })
+            .attr("y", function(d) { 
+                return height + 20;
+            })
+            .text(function(d) {
+                return d.univ;
+            })
+            
+        svg.selectAll("numbers")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "numbers")
+            .attr("x", function(d) { 
+                return d.sequence * (xScale.rangeBand()+10) + 60;
+             })
+            .attr("y", function(d) { 
+                return height - 5 -  yScale(500 - d.Freshman - d.Sophomore - d.Junior - d.Senior);
+            })
+            .text(function(d) {
+                return ( d.Freshman + d.Sophomore + d.Junior + d.Senior);
+            })
+        // Create legends
+        svg.append("rect")
+            .attr("y", 90)
+            .attr("x", 750)
+            .attr("width","20px")
+            .attr("height","20px")
+            .attr("fill", "#2E2EFE")
+            .attr("stroke","#7f7f7f")
+            .attr("stroke-width","0.5");
+        svg.append("text")
+            .text("Senior")
+            .attr("x", 780)
+            .attr("y", 105)
+
+        svg.append("rect")
+            .attr("y", 120)
+            .attr("x", 750)
+            .attr("width","20px")
+            .attr("height","20px")
+            .attr("fill", "#2E64FE")
+            .attr("stroke","#7f7f7f")
+            .attr("stroke-width","0.5");
+        svg.append("text")
+            .text("Junior")
+            .attr("x", 780)
+            .attr("y", 135)
+
+        svg.append("rect")
+            .attr("y", 150)
+            .attr("x", 750)
+            .attr("width","20px")
+            .attr("height","20px")
+            .attr("fill", "#2E64FE")
+            .attr("stroke","#7f7f7f")
+            .attr("stroke-width","0.5");
+        svg.append("text")
+            .text("Sophomore")
+            .attr("x", 780)
+            .attr("y", 165)
+
+        svg.append("rect")
+            .attr("y", 180)
+            .attr("x", 750)
+            .attr("width","20px")
+            .attr("height","20px")
+            .attr("fill", "#2ECCFA")
+            .attr("stroke","#7f7f7f")
+            .attr("stroke-width","0.5");
+        svg.append("text")
+            .text("Freshman")
+            .attr("x", 780)
+            .attr("y", 195)
+         // Add labels
+        svg.append("text")
+            .text("Student Number")
+            .attr("x",10)
+            .attr("y",0)
+            .attr("font-family", "Arial")
+            .attr("font-size", "14px")
+            .attr("text-anchor", "left");
+        svg .append("text")
+            .text("University")
+            .attr("x",620)
+            .attr("y",450)
+            .attr("font-family", "Arial")
+            .attr("font-size", "14px")         
+            .attr("text-anchor", "left");
+    })
+    </script>
+</body>
+</html>
