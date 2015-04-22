@@ -10,7 +10,7 @@
     <!--Import style.css -->
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> -->
     <!-- Responsive Web Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Import D3 -->
@@ -85,7 +85,7 @@
       </div>
     </div>
     <div class="visualization #26c6da cyan lighten-1">
-        <div class="heapmapSection">
+        <div class="heatmapSection">
             <div class="col s6">
                 <div id="heatmap"> </div>
             </div>
@@ -125,7 +125,7 @@
 <script type="text/javascript">
 
     var checkClick = 1;
-    var chartWidth = 550;
+    var chartWidth = $(window).width();
     var chartHeight = 550;
     var xscale = d3.scale.linear().range([0, chartWidth]);
     var yscale = d3.scale.linear().range([0, chartHeight]);
@@ -335,10 +335,10 @@
     function heatmap(){
           
         var hMargin = { top: 100, right: 0, bottom: 0, left: 30 },
-        hWidth = 800 - hMargin.left - hMargin.right,
+        hWidth = 510 - hMargin.left - hMargin.right,
         hHeight = 300 - hMargin.top - hMargin.bottom,
         //Square Size
-        gridSize = Math.floor(hWidth / 24),
+        gridSize = Math.floor(750 / 24),
         legendElementWidth = gridSize*1.2,
         buckets = 9;
         colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], 
@@ -420,6 +420,7 @@
 
         var svg = d3.select("#heatmap").append("svg")
                 .attr("width", hWidth + hMargin.left + hMargin.right)
+                // .attr("id", "heatmapGrids")
                 .attr("height", hHeight + hMargin.top + hMargin.bottom)
                 .append("g")
                 .attr("transform", "translate(" + hMargin.left + "," + hMargin.top + ")");
