@@ -8,6 +8,9 @@ body {
     overflow: scroll;
     width:100%;
 }
+.logo {
+    font-size: 2em;
+}
 .intro
 {
     text-align: center;
@@ -16,7 +19,7 @@ body {
     margin-bottom: auto;
 }
 
-.intro h1
+.intro h3
 {
     font-weight: 900;
     text-transform: uppercase;
@@ -88,7 +91,6 @@ body {
 .visualization {
     height: 100%;
     width: 100%;
-    margin: auto;
     padding: 0px;
 }
 .page-footer {
