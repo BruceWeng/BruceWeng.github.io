@@ -22,17 +22,23 @@ body {
 .intro h3
 {
     font-weight: 900;
-    text-transform: uppercase;
-}
+/*    text-transform: uppercase;
+*/}
 
 .intro h5
 {
-    text-transform: uppercase;
-    background-color: #f5f5f5;
+/*    text-transform: uppercase;
+*/    background-color: #f5f5f5;
     padding: auto;
     color: #333333;
     display: inline-block;
     font-size: 1.2rem;
+}
+.description {
+    background-color: deep-orange lighten-2 z-depth-1;
+    width: 60%;
+    font-color: #A9A9A9;
+
 }
 .about{
     width: 100%;
