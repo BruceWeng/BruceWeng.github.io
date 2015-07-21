@@ -361,8 +361,8 @@ section h3.section-subheading {
     text-transform: none;
 }
 .services {
-    background: #16A696;
     color: #FFFFFF;
+    background-image: url(../img/team/bg-dark.png);
 }
 #portfolio .portfolio-item {
     right: 0;
@@ -642,11 +642,11 @@ section h3.section-subheading {
 }
 
 .team-member {
-    margin-bottom: 50px;
-    text-align: center;
+/*    margin-bottom: 50px;
+*/    text-align: center;
 }
 .team-bg {
-    background-image: url(../img/team/bg-dark.png);
+    background: #16A696;
 }
 .team-member img {
     margin: 0 auto;
@@ -662,7 +662,12 @@ section h3.section-subheading {
 .team-member p {
     margin-top: 0;
 }
-
+.font-white {
+    color: #FFFFFF;
+}
+.consultant-bg {
+    background-image: url(../img/consultant/bg-dark.png);
+}
 aside.clients img {
     margin: 50px auto;
 }
