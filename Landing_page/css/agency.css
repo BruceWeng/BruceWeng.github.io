@@ -183,9 +183,9 @@ fieldset[disabled] .btn-xl.active {
     color: #16A696;
 }
 .hat {
-    width: 55px;
+    width: 205px;
     height: 52px;
-    background-image: url("../img/logos/Logo.png");
+    background-image: url("../img/logos/Logo_Title.png");
     -webkit-background-size: cover;
     background-size: cover;
 }
